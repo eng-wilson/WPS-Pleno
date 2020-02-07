@@ -70,7 +70,14 @@ export const Title = styled.Text.attrs({
   color: #333;
 `;
 
-export const Author = styled.Text`
+export const Description = styled.Text`
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+  margin-bottom: 10px;
+`;
+
+export const Detail = styled.Text`
   font-size: 13px;
   color: #666;
   margin-top: 2px;

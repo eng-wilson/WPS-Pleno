@@ -83,7 +83,7 @@ export default class Main extends Component {
         </Form>
         <List>
           {users.map(user => (
-            <TouchableOpacity onPress={() => this.handleNavigate(user)}>
+            <TouchableOpacity onPress={() => this.handleNavigate(user.login)}>
               <User>
                 <Avatar source={{ uri: user.avatar_url }} />
                 <Info>

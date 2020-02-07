@@ -13,10 +13,10 @@ import {
   Bio,
   Stars,
   Starred,
-  OwnerAvatar,
   Info,
   Title,
-  Author,
+  Description,
+  Detail,
 } from './styles';
 
 export default class User extends Component {
@@ -31,28 +31,34 @@ export default class User extends Component {
   };
 
   state = {
+    user: {},
     stars: [],
   };
 
   async componentDidMount() {
     const { navigation } = this.props;
+
     const user = navigation.getParam('user');
 
-    const response = await api.get(`/users/${user.login}/starred`);
+    console.tron.logImportant(user);
 
-    this.setState({ stars: response.data });
+    const info = await api.get(`/users/${user}`);
+    const repositories = await api.get(`/users/${user}/repos`);
+
+    this.setState({ user: info.data, stars: repositories.data });
   }
 
   render() {
-    const { navigation } = this.props;
-    const { stars } = this.state;
-    const user = navigation.getParam('user');
+    const { user, stars } = this.state;
+
+    console.tron.logImportant(user);
+
     return (
       <Container>
         <Header>
-          <Avatar source={{ uri: user.avatar }} />
-          <Name>{user.name}</Name>
-          <Bio>{user.bio}</Bio>
+          <Avatar source={{ uri: user.avatar_url }} />
+          {user.name && <Name>{user.name}</Name>}
+          {user.bio && <Bio>{user.bio}</Bio>}
         </Header>
 
         <Stars
@@ -60,10 +66,18 @@ export default class User extends Component {
           keyExtractor={star => String(star.id)}
           renderItem={({ item }) => (
             <Starred>
-              <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
               <Info>
                 <Title>{item.name}</Title>
-                <Author>{item.owner.login}</Author>
+                {item.description && (
+                  <Description>{item.description}</Description>
+                )}
+                <Detail>
+                  {item.forks} {item.forks === 1 ? 'fork' : 'forks'}
+                </Detail>
+                <Detail>
+                  {item.open_issues}{' '}
+                  {item.open_issues === 1 ? 'open issue' : 'open issues'}
+                </Detail>
               </Info>
             </Starred>
           )}
