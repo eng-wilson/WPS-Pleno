@@ -33,21 +33,31 @@ export const SubmitButton = styled(RectButton)`
   padding: 0 12px;
 `;
 
-export const List = styled.FlatList.attrs({
+export const List = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
   margin-top: 20px;
 `;
 
+export const Info = styled.View`
+  margin-left: 10px;
+  flex: 1;
+`;
+
 export const User = styled.View`
+  background: #fff;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  flex-direction: row;
   align-items: center;
-  margin: 0 20px 30px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
 export const Avatar = styled.Image`
-  width: 64px;
-  height: 64px;
-  border-radius: 32px;
+  height: 42px;
+  width: 42px;
+  border-radius: 21px;
   background: #eee;
 `;
 
@@ -56,7 +66,6 @@ export const Name = styled.Text`
   color: #333;
   font-weight: bold;
   margin-top: 5px;
-  text-align: center;
 `;
 
 export const Bio = styled.Text.attrs({
@@ -66,7 +75,6 @@ export const Bio = styled.Text.attrs({
   line-height: 18px;
   color: #999;
   margin-top: 5px;
-  text-align: center;
 `;
 
 export const ProfileButton = styled(RectButton)`
