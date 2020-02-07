@@ -1,6 +1,7 @@
 /* eslint-disable react/state-in-constructor */
 /* eslint-disable react/static-property-placement */
 import React, { Component } from 'react';
+import { TouchableOpacity, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 
 import api from '../../services/api';
@@ -74,19 +75,21 @@ export default class User extends Component {
           keyExtractor={star => String(star.id)}
           renderItem={({ item }) => (
             <Repository>
-              <Info>
-                <Title>{item.name}</Title>
-                {item.description && (
-                  <Description>{item.description}</Description>
-                )}
-                <Detail>
-                  {item.forks} {item.forks === 1 ? 'fork' : 'forks'}
-                </Detail>
-                <Detail>
-                  {item.open_issues}{' '}
-                  {item.open_issues === 1 ? 'open issue' : 'open issues'}
-                </Detail>
-              </Info>
+              <TouchableOpacity onPress={() => Linking.openURL(item.html_url)}>
+                <Info>
+                  <Title>{item.name}</Title>
+                  {item.description && (
+                    <Description>{item.description}</Description>
+                  )}
+                  <Detail>
+                    {item.forks} {item.forks === 1 ? 'fork' : 'forks'}
+                  </Detail>
+                  <Detail>
+                    {item.open_issues}{' '}
+                    {item.open_issues === 1 ? 'open issue' : 'open issues'}
+                  </Detail>
+                </Info>
+              </TouchableOpacity>
             </Repository>
           )}
         />
