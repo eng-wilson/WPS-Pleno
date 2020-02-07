@@ -11,12 +11,13 @@ import {
   Avatar,
   Name,
   Bio,
-  Stars,
-  Starred,
+  RepoList,
+  Repository,
   Info,
   Title,
   Description,
   Detail,
+  ListTitle,
 } from './styles';
 
 export default class User extends Component {
@@ -61,11 +62,13 @@ export default class User extends Component {
           {user.bio && <Bio>{user.bio}</Bio>}
         </Header>
 
-        <Stars
+        <ListTitle>Repositórios</ListTitle>
+
+        <RepoList
           data={stars}
           keyExtractor={star => String(star.id)}
           renderItem={({ item }) => (
-            <Starred>
+            <Repository>
               <Info>
                 <Title>{item.name}</Title>
                 {item.description && (
@@ -79,7 +82,7 @@ export default class User extends Component {
                   {item.open_issues === 1 ? 'open issue' : 'open issues'}
                 </Detail>
               </Info>
-            </Starred>
+            </Repository>
           )}
         />
       </Container>

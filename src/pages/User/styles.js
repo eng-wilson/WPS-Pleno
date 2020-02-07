@@ -35,13 +35,13 @@ export const Bio = styled.Text`
   text-align: center;
 `;
 
-export const Stars = styled.FlatList.attrs({
+export const RepoList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
   margin-top: 20px;
 `;
 
-export const Starred = styled.View`
+export const Repository = styled.View`
   background: #f5f5f5;
   border-radius: 4px;
   padding: 10px 15px;
@@ -79,6 +79,12 @@ export const Description = styled.Text`
 
 export const Detail = styled.Text`
   font-size: 13px;
-  color: #666;
   margin-top: 2px;
+`;
+
+export const ListTitle = styled.Text`
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
 `;

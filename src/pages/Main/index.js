@@ -18,6 +18,7 @@ import {
   Bio,
   Avatar,
   Info,
+  Error,
 } from './styles';
 
 export default class Main extends Component {
@@ -35,6 +36,7 @@ export default class Main extends Component {
     newUser: '',
     users: [],
     loading: false,
+    error: false,
   };
 
   handleNavigate = user => {
@@ -48,18 +50,26 @@ export default class Main extends Component {
 
     this.setState({ loading: true });
 
-    const response = await api.get(`/search/users?q=${newUser}`);
+    try {
+      const response = await api.get(`/search/users?q=${newUser}`);
 
-    this.setState({
-      users: [...response.data.items],
-      loading: false,
-    });
+      this.setState({
+        users: [...response.data.items],
+        loading: false,
+        error: false,
+      });
+    } catch (error) {
+      this.setState({
+        loading: false,
+        error: true,
+      });
+    }
 
     Keyboard.dismiss();
   };
 
   render() {
-    const { users, newUser, loading } = this.state;
+    const { users, newUser, loading, error } = this.state;
 
     return (
       <Container>
@@ -81,19 +91,23 @@ export default class Main extends Component {
             )}
           </SubmitButton>
         </Form>
-        <List>
-          {users.map(user => (
-            <TouchableOpacity onPress={() => this.handleNavigate(user.login)}>
-              <User>
-                <Avatar source={{ uri: user.avatar_url }} />
-                <Info>
-                  <Name>{user.login}</Name>
-                  <Bio>{user.id}</Bio>
-                </Info>
-              </User>
-            </TouchableOpacity>
-          ))}
-        </List>
+        {error ? (
+          <Error>Nenhum usuário encontrado</Error>
+        ) : (
+          <List>
+            {users.map(user => (
+              <TouchableOpacity onPress={() => this.handleNavigate(user.login)}>
+                <User>
+                  <Avatar source={{ uri: user.avatar_url }} />
+                  <Info>
+                    <Name>{user.login}</Name>
+                    <Bio>{user.id}</Bio>
+                  </Info>
+                </User>
+              </TouchableOpacity>
+            ))}
+          </List>
+        )}
       </Container>
     );
   }
