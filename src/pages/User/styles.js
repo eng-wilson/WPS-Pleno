@@ -88,3 +88,19 @@ export const ListTitle = styled.Text`
   font-weight: bold;
   color: #000;
 `;
+
+export const FollowInfo = styled.View`
+  width: 100%;
+  padding: 0px 15px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Location = styled.Text`
+  font-size: 13px;
+  width: 100%;
+  padding: 10px 15px;
+  justify-content: flex-start;
+  align-items: center;
+`;

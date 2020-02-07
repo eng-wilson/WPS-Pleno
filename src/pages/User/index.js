@@ -18,6 +18,8 @@ import {
   Description,
   Detail,
   ListTitle,
+  FollowInfo,
+  Location,
 } from './styles';
 
 export default class User extends Component {
@@ -41,8 +43,6 @@ export default class User extends Component {
 
     const user = navigation.getParam('user');
 
-    console.tron.logImportant(user);
-
     const info = await api.get(`/users/${user}`);
     const repositories = await api.get(`/users/${user}/repos`);
 
@@ -52,14 +52,19 @@ export default class User extends Component {
   render() {
     const { user, stars } = this.state;
 
-    console.tron.logImportant(user);
-
     return (
       <Container>
         <Header>
           <Avatar source={{ uri: user.avatar_url }} />
           {user.name && <Name>{user.name}</Name>}
           {user.bio && <Bio>{user.bio}</Bio>}
+
+          <Location>Localização: {user.location}</Location>
+
+          <FollowInfo>
+            <Detail>Seguidores: {user.followers}</Detail>
+            <Detail>Seguindo: {user.following}</Detail>
+          </FollowInfo>
         </Header>
 
         <ListTitle>Repositórios</ListTitle>
